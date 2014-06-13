@@ -25,6 +25,16 @@
 
 #import <UIKit/UIKit.h>
 
+@class LAWalkthroughViewController;
+
+@protocol LAWalkthroughViewControllerDelegate <NSObject>
+
+@optional
+
+- (void)walkThroughViewController:(LAWalkthroughViewController *)controller didChangeToPage:(NSInteger)pageIndex;
+
+@end
+
 @interface LAWalkthroughViewController : UIViewController <UIPageViewControllerDelegate, UIScrollViewDelegate>
 {
   UIScrollView *scrollView;
@@ -32,13 +42,13 @@
   BOOL pageControlUsed;
 }
 
+@property (nonatomic, weak) id<LAWalkthroughViewControllerDelegate> delegate;
 @property (nonatomic,strong) UIImage *backgroundImage;
 @property (nonatomic,readonly) UIImageView *backgroundImageView;
 @property (nonatomic,readonly) UIButton *nextButton;
 @property (nonatomic) UIImage *nextButtonImage;
 @property (nonatomic) NSString *nextButtonText;
 @property (nonatomic,readonly) NSInteger numberOfPages;
-@property (nonatomic) NSInteger pageControlBottomMargin;
 @property (nonatomic,readonly) CGRect pageControlFrame;
 @property (nonatomic,readonly,copy) NSArray *pages;
 

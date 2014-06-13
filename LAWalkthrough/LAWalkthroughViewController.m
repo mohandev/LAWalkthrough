@@ -43,8 +43,6 @@
   if (self)
   {
     pageViews = NSMutableArray.new;
-    
-    self.pageControlBottomMargin = 10;
   }
   return self;
 }
@@ -53,6 +51,11 @@
 {
   self.view = [[UIView alloc] initWithFrame:CGRectZero];
   self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+}
+
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
 }
 
 - (void)viewDidLoad
@@ -190,7 +193,7 @@
 - (void)changePage
 {
   NSInteger pageIndex = pageControl.currentPage;
-  
+    
   // update the scroll view to the appropriate page
   CGRect frame = scrollView.frame;
   frame.origin.x = frame.size.width * pageIndex;
@@ -198,6 +201,11 @@
   [scrollView scrollRectToVisible:frame animated:YES];
 
   pageControlUsed = YES;
+    
+  if (self.delegate != nil &&
+      [self.delegate respondsToSelector:@selector(walkThroughViewController:didChangeToPage:)]) {
+      [self.delegate walkThroughViewController:self didChangeToPage:pageIndex];
+  }
 }
 
 - (NSArray *)pages
@@ -221,7 +229,7 @@
   CGSize pagerSize = [pageControl sizeForNumberOfPages:self.numberOfPages];
   
   return CGRectMake(0,
-                    scrollView.frame.size.height - self.pageControlBottomMargin - pagerSize.height,
+                    0,
                     self.view.frame.size.width,
                     pagerSize.height);
 }
@@ -247,6 +255,11 @@
   }
 
   pageControl.currentPage = nextPage;
+    
+  if (self.delegate != nil &&
+    [self.delegate respondsToSelector:@selector(walkThroughViewController:didChangeToPage:)]) {
+    [self.delegate walkThroughViewController:self didChangeToPage:nextPage];
+  }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView

@@ -9,7 +9,7 @@
 #import "LAViewController.h"
 #import "LAWalkthroughViewController.h"
 
-@interface LAViewController ()
+@interface LAViewController () <LAWalkthroughViewControllerDelegate>
 
 @end
 
@@ -28,6 +28,7 @@
   
   // Use the default next button
   walkthrough.nextButtonText = nil;
+  walkthrough.delegate = self;
   
   // Add the walkthrough view to your view controller's view
   [self addChildViewController:walkthrough];
@@ -39,6 +40,13 @@
   [self createWalkthrough];
   
   [super viewDidAppear:animated];
+}
+
+#pragma mark - LAWalkthroughViewControllerDelegate
+
+- (void)walkThroughViewController:(LAWalkthroughViewController *)controller didChangeToPage:(NSInteger)pageIndex
+{
+    NSLog(@"did change to page = %@", @(pageIndex));
 }
 
 @end
