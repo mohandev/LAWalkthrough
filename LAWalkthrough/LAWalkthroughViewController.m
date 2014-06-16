@@ -75,8 +75,8 @@
   [self.view addSubview:scrollView];
   
   pageControl = [self createPageControl];
-  pageControl.pageIndicatorTintColor = [UIColor colorWithRed:0.0 green:0.0 blue:255.0 alpha:0.25];
-  pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:0.0 green:0.0 blue:255.0 alpha:1.0];
+  pageControl.pageIndicatorTintColor = [UIColor colorWithRed:29.0 green:119.0 blue:231.0 alpha:0.25];
+  pageControl.currentPageIndicatorTintColor = [UIColor colorWithRed:29.0 green:119.0 blue:231.0 alpha:1.0];
   [pageControl addTarget:self action:@selector(changePage) forControlEvents:UIControlEventValueChanged];
   pageControl.currentPage = 0;
   [self.view addSubview:pageControl];
