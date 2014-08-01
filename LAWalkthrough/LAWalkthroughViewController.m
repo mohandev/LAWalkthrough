@@ -133,9 +133,8 @@
 {
     self.currentPageBeforeOrientationChange = pageControl.currentPage;
     
-    scrollView.alpha = 0.25;
     [UIView animateWithDuration:duration animations:^{
-        scrollView.alpha = 1.0;
+        scrollView.alpha = 0.01;
     }];
 }
 
@@ -162,6 +161,9 @@
     currentPageFrame.origin.x = currentPage * scrollView.frame.size.width;
     [scrollView scrollRectToVisible:currentPageFrame animated:NO];
     
+    [UIView animateWithDuration:0.4 animations:^{
+        scrollView.alpha = 1.0;
+    }];
 }
 
 - (CGRect)defaultPageFrame
