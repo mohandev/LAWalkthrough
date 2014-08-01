@@ -32,6 +32,7 @@
 
 @property (nonatomic) UIImageView *backgroundImageView;
 @property (nonatomic) UIButton *nextButton;
+@property (nonatomic, assign) NSInteger currentPageBeforeOrientationChange;
 
 @end
 
@@ -128,6 +129,11 @@
   [super viewWillAppear:animated];
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    self.currentPageBeforeOrientationChange = pageControl.currentPage;
+}
+
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     // Update content size for current orientation!
@@ -146,7 +152,7 @@
     }
     
     // Scroll the current page after the orientation change.
-    NSInteger currentPage = pageControl.currentPage;
+    NSInteger currentPage = self.currentPageBeforeOrientationChange;
     CGRect currentPageFrame = scrollView.frame;
     currentPageFrame.origin.x = currentPage * scrollView.frame.size.width;
     [scrollView scrollRectToVisible:currentPageFrame animated:NO];
