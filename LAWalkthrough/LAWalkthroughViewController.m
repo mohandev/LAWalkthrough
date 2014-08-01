@@ -132,6 +132,11 @@
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     self.currentPageBeforeOrientationChange = pageControl.currentPage;
+    
+    scrollView.alpha = 0.25;
+    [UIView animateWithDuration:duration animations:^{
+        scrollView.alpha = 1.0;
+    }];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
