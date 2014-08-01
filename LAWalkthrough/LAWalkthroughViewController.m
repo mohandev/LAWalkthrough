@@ -128,6 +128,20 @@
   [super viewWillAppear:animated];
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    // Update the page view origins for the current orienation
+    for (NSInteger i = 0; i < self.numberOfPages; ++i) {
+        UIView *pageView = pageViews[i];
+        CGRect newPageFrame = [self defaultPageFrame];
+        newPageFrame.origin.x = i * [self defaultPageFrame].size.width;
+        
+        if(!CGRectEqualToRect(pageView.frame, newPageFrame)) {
+            pageView.frame = newPageFrame;
+        }
+    }
+}
+
 - (CGRect)defaultPageFrame
 {
   return self.view.frame;
@@ -177,8 +191,8 @@
   }
 
   // Move the view to its correct page location
-  CGRect frame = pageView.frame;
-  frame.origin.x = self.numberOfPages * pageView.frame.size.width;
+  CGRect frame = [self defaultPageFrame];
+  frame.origin.x = self.numberOfPages * [self defaultPageFrame].size.width;
   pageView.frame = frame;
   
   [pageViews addObject:pageView];
