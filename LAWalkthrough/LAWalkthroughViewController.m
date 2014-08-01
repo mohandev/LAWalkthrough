@@ -268,8 +268,13 @@
 {
   CGSize pagerSize = [pageControl sizeForNumberOfPages:self.numberOfPages];
   
+  CGFloat y = 0;
+  if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    y = 10.0;
+  }
+
   return CGRectMake(0,
-                    0,
+                    y,
                     self.view.frame.size.width,
                     pagerSize.height);
 }
