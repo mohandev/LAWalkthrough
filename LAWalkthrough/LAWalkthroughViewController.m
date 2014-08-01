@@ -130,6 +130,10 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
+    // Update content size for current orientation!
+    scrollView.frame = [self defaultPageFrame];
+    scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * self.numberOfPages, scrollView.frame.size.height);
+    
     // Update the page view origins for the current orienation
     for (NSInteger i = 0; i < self.numberOfPages; ++i) {
         UIView *pageView = pageViews[i];
