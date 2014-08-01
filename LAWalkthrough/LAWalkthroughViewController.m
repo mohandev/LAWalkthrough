@@ -144,6 +144,13 @@
             pageView.frame = newPageFrame;
         }
     }
+    
+    // Scroll the current page after the orientation change.
+    NSInteger currentPage = pageControl.currentPage;
+    CGRect currentPageFrame = scrollView.frame;
+    currentPageFrame.origin.x = currentPage * scrollView.frame.size.width;
+    [scrollView scrollRectToVisible:currentPageFrame animated:NO];
+    
 }
 
 - (CGRect)defaultPageFrame
